@@ -1,0 +1,54 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "metadata": {
+        "formatVersion": "meridian.object.v1",
+        "objectRef": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "byteLength": 4,
+        "mediaType": "application/octet-stream",
+        "createdAt": "2026-08-25T00:00:00.000000Z",
+        "creationContext": {"requestId": "fixture"},
+        "userMetadata": {"name": "fixture"},
+        "mutability": "immutable",
+        "provenance": {"source": "test"}
+      }
+    },
+    {
+      "metadata": {
+        "formatVersion": "meridian.object.v1",
+        "objectRef": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "byteLength": 4,
+        "mediaType": "application/octet-stream",
+        "createdAt": "2026-08-25T00:00:00.000000Z",
+        "creationContext": {},
+        "userMetadata": {},
+        "mutability": "immutable",
+        "provenance": {}
+      },
+      "payload": {
+        "formatVersion": "meridian.object.payload-reference.v1",
+        "token": "p_result",
+        "expectedLength": 4,
+        "expectedDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "replayable": false
+      }
+    },
+    {
+      "items": [],
+      "cursor": null
+    },
+    {"deleted": true}
+  ],
+  "formatVersion": "meridian.object-fixtures.v1"
+}

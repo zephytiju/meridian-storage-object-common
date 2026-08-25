@@ -1,0 +1,190 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "$id": "https://github.com/zephytiju/meridian-storage-object-common/contracts/object/meridian-object-expression.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meridian V1 Object Catalog Expression",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "catalog", "method", "arguments"],
+  "properties": {
+    "formatVersion": { "const": "meridian-expression.v1" },
+    "catalog": { "const": "object" },
+    "method": { "enum": ["create_resource", "delete", "get", "list", "publish_schema", "put", "read_range", "stat"] },
+    "arguments": { "type": "object" }
+  },
+  "oneOf": [
+    { "properties": { "method": { "const": "publish_schema" }, "arguments": { "$ref": "#/$defs/publishSchema" } } },
+    { "properties": { "method": { "const": "create_resource" }, "arguments": { "$ref": "#/$defs/createResource" } } },
+    { "properties": { "method": { "const": "put" }, "arguments": { "$ref": "#/$defs/put" } } },
+    { "properties": { "method": { "enum": ["get", "stat"] }, "arguments": { "$ref": "#/$defs/referenceOperation" } } },
+    { "properties": { "method": { "const": "read_range" }, "arguments": { "$ref": "#/$defs/rangeOperation" } } },
+    { "properties": { "method": { "const": "list" }, "arguments": { "$ref": "#/$defs/listOperation" } } },
+    { "properties": { "method": { "const": "delete" }, "arguments": { "$ref": "#/$defs/deleteOperation" } } }
+  ],
+  "$defs": {
+    "logicalName": { "type": "string", "pattern": "^[A-Za-z](?:[A-Za-z0-9_.-]{0,253}[A-Za-z0-9])?$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "resource": {
+      "oneOf": [
+        { "type": "string", "pattern": "^(?:object:)?[A-Za-z](?:[A-Za-z0-9_.-]{0,253}[A-Za-z0-9])?\\.[A-Za-z](?:[A-Za-z0-9_.-]{0,253}[A-Za-z0-9])?$" },
+        { "$ref": "#/$defs/resourceRef" }
+      ]
+    },
+    "resourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalog", "namespace", "name"],
+      "properties": {
+        "catalog": { "const": "object" },
+        "namespace": { "$ref": "#/$defs/logicalName" },
+        "name": { "$ref": "#/$defs/logicalName" }
+      }
+    },
+    "objectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resourceRef", "objectId"],
+      "properties": {
+        "resourceRef": { "$ref": "#/$defs/resourceRef" },
+        "objectId": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "signedRef": { "$ref": "meridian-object-signed-reference.v1.schema.json" },
+    "reference": { "oneOf": [{ "$ref": "#/$defs/objectRef" }, { "$ref": "#/$defs/signedRef" }] },
+    "payload": { "$ref": "meridian-object-payload-reference.v1.schema.json" },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "profile", "mutability", "rangeReads", "conditionalCreate", "boundedPrefixList", "metadata"],
+      "properties": {
+        "kind": { "enum": ["object", "artifact", "media"] },
+        "profile": { "enum": ["object", "artifact", "media"] },
+        "mutability": { "enum": ["immutable", "mutable"] },
+        "rangeReads": { "type": "boolean" },
+        "conditionalCreate": { "type": "boolean" },
+        "boundedPrefixList": { "type": "boolean" },
+        "metadata": { "type": "object" }
+      }
+    },
+    "immutability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mutability", "publishOnce"],
+      "properties": {
+        "mutability": { "enum": ["immutable", "mutable"] },
+        "publishOnce": { "type": "boolean" }
+      }
+    },
+    "retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retainUntil", "policy", "requireEnforcement"],
+      "properties": {
+        "retainUntil": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}Z$" },
+        "policy": { "type": ["string", "null"], "minLength": 1, "maxLength": 256 },
+        "requireEnforcement": { "type": "boolean" }
+      },
+      "anyOf": [
+        { "properties": { "retainUntil": { "type": "string" } } },
+        { "properties": { "policy": { "type": "string" } } }
+      ]
+    },
+    "publishSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namespace", "name", "version", "definition", "allowBreaking", "expectedRegistryRevision"],
+      "properties": {
+        "namespace": { "$ref": "#/$defs/logicalName" },
+        "name": { "$ref": "#/$defs/logicalName" },
+        "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "definition": { "type": "object" },
+        "allowBreaking": { "type": "boolean" },
+        "expectedRegistryRevision": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "createResource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namespace", "name", "profile", "options"],
+      "properties": {
+        "namespace": { "$ref": "#/$defs/logicalName" },
+        "name": { "$ref": "#/$defs/logicalName" },
+        "profile": { "$ref": "#/$defs/profile" },
+        "options": { "type": "object" }
+      }
+    },
+    "put": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "objectId", "payload", "mediaType", "expectedDigest", "expectedLength", "userMetadata", "creationContext", "provenance", "immutability", "retention", "createOnly"],
+      "properties": {
+        "resource": { "$ref": "#/$defs/resource" },
+        "objectId": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "payload": { "$ref": "#/$defs/payload" },
+        "mediaType": { "type": "string", "pattern": "^[^/ ]+/[^/ ]+$" },
+        "expectedDigest": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+        "expectedLength": { "type": ["integer", "null"], "minimum": 0 },
+        "userMetadata": { "type": "object", "maxProperties": 128, "additionalProperties": { "type": "string", "maxLength": 2048 } },
+        "creationContext": { "type": "object" },
+        "provenance": { "type": "object" },
+        "immutability": { "anyOf": [{ "$ref": "#/$defs/immutability" }, { "type": "null" }] },
+        "retention": { "anyOf": [{ "$ref": "#/$defs/retention" }, { "type": "null" }] },
+        "createOnly": { "type": "boolean" }
+      }
+    },
+    "referenceOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "reference"],
+      "properties": { "resource": { "$ref": "#/$defs/resource" }, "reference": { "$ref": "#/$defs/reference" } }
+    },
+    "rangeOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "reference", "range"],
+      "properties": {
+        "resource": { "$ref": "#/$defs/resource" },
+        "reference": { "$ref": "#/$defs/reference" },
+        "range": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["start"],
+              "properties": { "start": { "type": "integer", "minimum": 0 }, "end": { "type": "integer", "minimum": 0 } }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["suffixLength"],
+              "properties": { "suffixLength": { "type": "integer", "minimum": 1 } }
+            }
+          ]
+        }
+      }
+    },
+    "listOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "prefix", "limit", "cursor", "purpose"],
+      "properties": {
+        "resource": { "$ref": "#/$defs/resource" },
+        "prefix": { "type": "string", "maxLength": 1024 },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "cursor": { "type": ["string", "null"], "maxLength": 2048 },
+        "purpose": { "const": "maintenance" }
+      }
+    },
+    "deleteOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "reference", "reason"],
+      "properties": {
+        "resource": { "$ref": "#/$defs/resource" },
+        "reference": { "$ref": "#/$defs/objectRef" },
+        "reason": { "type": ["string", "null"], "maxLength": 1024 }
+      }
+    }
+  }
+}

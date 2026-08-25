@@ -1,0 +1,21 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "formatVersion": "meridian.object.signed-reference.v1",
+      "objectRef": {
+        "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+        "objectId": "item.bin",
+        "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "allowedOperations": ["get", "stat"],
+      "expiresAt": "2099-01-01T00:00:00.000000Z",
+      "audience": "fixture-reader",
+      "nonce": "fixture-nonce",
+      "keyId": "fixture-key",
+      "algorithm": "hmac-sha256",
+      "signature": "zqbPrKFUtxRi-RzySzrIfwi5PAqHA57mSB9y75u5yQ4"
+    }
+  ],
+  "formatVersion": "meridian.object-fixtures.v1"
+}

@@ -1,0 +1,20 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "formatVersion": "meridian.object.payload-reference.v1",
+      "token": "p_unknown_length",
+      "expectedLength": null,
+      "expectedDigest": null,
+      "replayable": false
+    },
+    {
+      "formatVersion": "meridian.object.payload-reference.v1",
+      "token": "p_verified",
+      "expectedLength": 4,
+      "expectedDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "replayable": true
+    }
+  ],
+  "formatVersion": "meridian.object-fixtures.v1"
+}

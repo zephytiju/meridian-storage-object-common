@@ -1,0 +1,143 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "publish_schema",
+      "arguments": {
+        "namespace": "fixtures",
+        "name": "object_metadata",
+        "version": "1.0.0",
+        "definition": {"type": "object"},
+        "allowBreaking": false,
+        "expectedRegistryRevision": null
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "create_resource",
+      "arguments": {
+        "namespace": "fixtures",
+        "name": "objects",
+        "profile": {
+          "kind": "artifact",
+          "profile": "artifact",
+          "mutability": "immutable",
+          "rangeReads": true,
+          "conditionalCreate": true,
+          "boundedPrefixList": true,
+          "metadata": {}
+        },
+        "options": {}
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "put",
+      "arguments": {
+        "resource": "fixtures.objects",
+        "objectId": "item.bin",
+        "payload": {
+          "formatVersion": "meridian.object.payload-reference.v1",
+          "token": "p_fixture",
+          "expectedLength": 4,
+          "expectedDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "replayable": true
+        },
+        "mediaType": "application/octet-stream",
+        "expectedDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "expectedLength": 4,
+        "userMetadata": {"name": "fixture"},
+        "creationContext": {"requestId": "fixture"},
+        "provenance": {"source": "test"},
+        "immutability": {"mutability": "immutable", "publishOnce": true},
+        "retention": {
+          "retainUntil": "2099-01-01T00:00:00.000000Z",
+          "policy": null,
+          "requireEnforcement": true
+        },
+        "createOnly": true
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "get",
+      "arguments": {
+        "resource": "fixtures.objects",
+        "reference": {
+          "formatVersion": "meridian.object.signed-reference.v1",
+          "objectRef": {
+            "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+            "objectId": "item.bin",
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "allowedOperations": ["get", "stat"],
+          "expiresAt": "2099-01-01T00:00:00.000000Z",
+          "audience": "fixture-reader",
+          "nonce": "fixture-nonce",
+          "keyId": "fixture-key",
+          "algorithm": "hmac-sha256",
+          "signature": "zqbPrKFUtxRi-RzySzrIfwi5PAqHA57mSB9y75u5yQ4"
+        }
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "stat",
+      "arguments": {
+        "resource": "fixtures.objects",
+        "reference": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "read_range",
+      "arguments": {
+        "resource": "fixtures.objects",
+        "reference": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "range": {"start": 1, "end": 2}
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "list",
+      "arguments": {
+        "resource": "fixtures.objects",
+        "prefix": "item",
+        "limit": 10,
+        "cursor": null,
+        "purpose": "maintenance"
+      }
+    },
+    {
+      "formatVersion": "meridian-expression.v1",
+      "catalog": "object",
+      "method": "delete",
+      "arguments": {
+        "resource": "fixtures.objects",
+        "reference": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "reason": "cleanup"
+      }
+    }
+  ],
+  "formatVersion": "meridian.object-fixtures.v1"
+}

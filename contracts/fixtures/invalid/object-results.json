@@ -1,0 +1,9 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {"name": "delete-false", "document": {"deleted": false}},
+    {"name": "unbounded-extra-result", "document": {"items": [], "cursor": null, "providerToken": "secret"}},
+    {"name": "negative-byte-length", "document": {"metadata": {"formatVersion": "meridian.object.v1", "byteLength": -1}}}
+  ],
+  "formatVersion": "meridian.object-invalid-fixtures.v1"
+}

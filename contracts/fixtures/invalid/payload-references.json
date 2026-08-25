@@ -1,0 +1,18 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "name": "provider-url-token",
+      "document": {"formatVersion": "meridian.object.payload-reference.v1", "token": "https://provider.example/object", "expectedLength": null, "expectedDigest": null, "replayable": false}
+    },
+    {
+      "name": "negative-length",
+      "document": {"formatVersion": "meridian.object.payload-reference.v1", "token": "p_bad", "expectedLength": -1, "expectedDigest": null, "replayable": false}
+    },
+    {
+      "name": "uppercase-digest",
+      "document": {"formatVersion": "meridian.object.payload-reference.v1", "token": "p_bad", "expectedLength": 1, "expectedDigest": "SHA256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "replayable": true}
+    }
+  ],
+  "formatVersion": "meridian.object-invalid-fixtures.v1"
+}

@@ -1,0 +1,50 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "$id": "https://github.com/zephytiju/meridian-storage-object-common/contracts/object/meridian-object-result.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meridian V1 normalized Object operation result data",
+  "oneOf": [
+    { "$ref": "#/$defs/metadataResult" },
+    { "$ref": "#/$defs/payloadResult" },
+    { "$ref": "#/$defs/rangeResult" },
+    { "$ref": "#/$defs/listResult" },
+    { "$ref": "#/$defs/deleteResult" }
+  ],
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "resourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalog", "namespace", "name"],
+      "properties": { "catalog": { "const": "object" }, "namespace": { "type": "string" }, "name": { "type": "string" } }
+    },
+    "objectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resourceRef", "objectId", "digest"],
+      "properties": { "resourceRef": { "$ref": "#/$defs/resourceRef" }, "objectId": { "type": "string" }, "digest": { "$ref": "#/$defs/digest" } }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formatVersion", "objectRef", "digest", "byteLength", "mediaType", "createdAt", "creationContext", "userMetadata", "mutability", "provenance"],
+      "properties": {
+        "formatVersion": { "const": "meridian.object.v1" },
+        "objectRef": { "$ref": "#/$defs/objectRef" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "byteLength": { "type": "integer", "minimum": 0 },
+        "mediaType": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "creationContext": { "type": "object" },
+        "userMetadata": { "type": "object", "additionalProperties": { "type": "string" } },
+        "mutability": { "enum": ["immutable", "mutable"] },
+        "provenance": { "type": "object" }
+      }
+    },
+    "metadataResult": { "type": "object", "additionalProperties": false, "required": ["metadata"], "properties": { "metadata": { "$ref": "#/$defs/metadata" } } },
+    "payloadResult": { "type": "object", "additionalProperties": false, "required": ["metadata", "payload"], "properties": { "metadata": { "$ref": "#/$defs/metadata" }, "payload": { "$ref": "meridian-object-payload-reference.v1.schema.json" } } },
+    "rangeResult": { "type": "object", "additionalProperties": false, "required": ["metadata", "payload", "range"], "properties": { "metadata": { "$ref": "#/$defs/metadata" }, "payload": { "$ref": "meridian-object-payload-reference.v1.schema.json" }, "range": { "type": "object", "additionalProperties": false, "required": ["start", "end", "length", "totalLength"], "properties": { "start": { "type": "integer" }, "end": { "type": "integer" }, "length": { "type": "integer" }, "totalLength": { "type": "integer" } } } } },
+    "listResult": { "type": "object", "additionalProperties": false, "required": ["items", "cursor"], "properties": { "items": { "type": "array", "items": { "$ref": "#/$defs/metadata" } }, "cursor": { "type": ["string", "null"] } } },
+    "deleteResult": { "type": "object", "additionalProperties": false, "required": ["deleted"], "properties": { "deleted": { "const": true } } }
+  }
+}

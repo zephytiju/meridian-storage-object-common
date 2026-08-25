@@ -1,0 +1,44 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "name": "sixth-catalog",
+      "document": {"formatVersion": "meridian-expression.v1", "catalog": "ontology", "method": "get", "arguments": {}}
+    },
+    {
+      "name": "unbounded-list",
+      "document": {
+        "formatVersion": "meridian-expression.v1",
+        "catalog": "object",
+        "method": "list",
+        "arguments": {"resource": "fixtures.objects", "prefix": "", "limit": 1001, "cursor": null, "purpose": "maintenance"}
+      }
+    },
+    {
+      "name": "consumer-list-purpose",
+      "document": {
+        "formatVersion": "meridian-expression.v1",
+        "catalog": "object",
+        "method": "list",
+        "arguments": {"resource": "fixtures.objects", "prefix": "", "limit": 1, "cursor": null, "purpose": "consumer-query"}
+      }
+    },
+    {
+      "name": "ambiguous-range",
+      "document": {
+        "formatVersion": "meridian-expression.v1",
+        "catalog": "object",
+        "method": "read_range",
+        "arguments": {
+          "resource": "fixtures.objects",
+          "reference": {
+            "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+            "objectId": "item.bin"
+          },
+          "range": {"start": 0, "suffixLength": 2}
+        }
+      }
+    }
+  ],
+  "formatVersion": "meridian.object-invalid-fixtures.v1"
+}

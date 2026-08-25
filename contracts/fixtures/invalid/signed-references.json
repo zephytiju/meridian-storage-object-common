@@ -1,0 +1,46 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "documents": [
+    {
+      "name": "provider-url-instead-of-logical-reference",
+      "document": {"formatVersion": "meridian.object.signed-reference.v1", "url": "https://provider.example/presigned"}
+    },
+    {
+      "name": "write-operation",
+      "document": {
+        "formatVersion": "meridian.object.signed-reference.v1",
+        "objectRef": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "allowedOperations": ["delete"],
+        "expiresAt": "2099-01-01T00:00:00.000000Z",
+        "audience": "reader",
+        "nonce": "nonce",
+        "keyId": "key",
+        "algorithm": "hmac-sha256",
+        "signature": "AA"
+      }
+    },
+    {
+      "name": "standard-base64-signature",
+      "document": {
+        "formatVersion": "meridian.object.signed-reference.v1",
+        "objectRef": {
+          "resourceRef": {"catalog": "object", "namespace": "fixtures", "name": "objects"},
+          "objectId": "item.bin",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "allowedOperations": ["get"],
+        "expiresAt": "2099-01-01T00:00:00.000000Z",
+        "audience": "reader",
+        "nonce": "nonce",
+        "keyId": "key",
+        "algorithm": "hmac-sha256",
+        "signature": "not+base64"
+      }
+    }
+  ],
+  "formatVersion": "meridian.object-invalid-fixtures.v1"
+}

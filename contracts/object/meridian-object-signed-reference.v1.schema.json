@@ -1,0 +1,48 @@
+{
+  "$comment": "SPDX-License-Identifier: Apache-2.0",
+  "$id": "https://github.com/zephytiju/meridian-storage-object-common/contracts/object/meridian-object-signed-reference.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meridian V1 signed logical Object reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "objectRef", "allowedOperations", "expiresAt", "audience", "nonce", "keyId", "algorithm", "signature"],
+  "properties": {
+    "formatVersion": { "const": "meridian.object.signed-reference.v1" },
+    "objectRef": { "$ref": "#/$defs/objectRef" },
+    "allowedOperations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["get", "read_range", "stat"] }
+    },
+    "expiresAt": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}Z$" },
+    "audience": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "nonce": { "$ref": "#/$defs/token" },
+    "keyId": { "$ref": "#/$defs/token" },
+    "algorithm": { "$ref": "#/$defs/token" },
+    "signature": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 2048 }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9._~-]{0,510}[A-Za-z0-9])?$" },
+    "resourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalog", "namespace", "name"],
+      "properties": {
+        "catalog": { "const": "object" },
+        "namespace": { "type": "string", "pattern": "^[A-Za-z](?:[A-Za-z0-9_.-]{0,253}[A-Za-z0-9])?$" },
+        "name": { "type": "string", "pattern": "^[A-Za-z](?:[A-Za-z0-9_.-]{0,253}[A-Za-z0-9])?$" }
+      }
+    },
+    "objectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resourceRef", "objectId", "digest"],
+      "properties": {
+        "resourceRef": { "$ref": "#/$defs/resourceRef" },
+        "objectId": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    }
+  }
+}
