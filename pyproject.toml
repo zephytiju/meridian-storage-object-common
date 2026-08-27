@@ -42,9 +42,9 @@ test = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/zephytiju/meridian-storage-object-common#readme"
-Issues = "https://github.com/zephytiju/meridian-storage-object-common/issues"
-Repository = "https://github.com/zephytiju/meridian-storage-object-common"
+Documentation = "https://github.com/zephytiju/MeridianObjectCommon#readme"
+Issues = "https://github.com/zephytiju/MeridianObjectCommon/issues"
+Repository = "https://github.com/zephytiju/MeridianObjectCommon"
 
 [project.entry-points."meridian_storage.catalogs"]
 object = "meridian_storage.object_common.catalog:ObjectCatalogProvider"
