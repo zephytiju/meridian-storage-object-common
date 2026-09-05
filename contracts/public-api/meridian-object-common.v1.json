@@ -104,6 +104,7 @@
     "TransferCancelled",
     "__version__",
     "classify_object_failure",
+    "default_payload_registry",
     "effective_immutability",
     "iter_payload_chunks",
     "negotiate_object_capabilities",
@@ -134,5 +135,5 @@
   "python": ">=3.12",
   "semantics": "1.0.0",
   "signedReferenceFormat": "meridian.object.signed-reference.v1",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "meridian-storage-object-common"
-version = "1.0.0"
+version = "1.0.1"
 description = "Provider-neutral Meridian Object Catalog contracts, streaming utilities, and conformance"
 readme = "README.md"
 requires-python = ">=3.12"

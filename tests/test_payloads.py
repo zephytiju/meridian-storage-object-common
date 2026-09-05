@@ -21,6 +21,7 @@ from meridian_storage.object_common import (
     Sha256Accumulator,
     StreamPayloadSource,
     TransferCancelled,
+    default_payload_registry,
     iter_payload_chunks,
     transfer_payload,
 )
@@ -28,6 +29,21 @@ from meridian_storage.object_common import (
 
 def _digest(value: bytes) -> str:
     return f"sha256:{hashlib.sha256(value).hexdigest()}"
+
+
+def test_default_registry_shares_handles_without_merging_explicit_registries() -> None:
+    registry = default_payload_registry()
+    assert bool(registry)
+    reference = registry.register(FactoryPayloadSource(lambda: BytesIO(b"shared")))
+    try:
+        with default_payload_registry().open(reference) as stream:
+            assert stream.read() == b"shared"
+        with pytest.raises(PayloadUnavailable), PayloadRegistry().open(reference):
+            pass
+    finally:
+        assert registry.release(reference)
+    with pytest.raises(PayloadUnavailable), default_payload_registry().open(reference):
+        pass
 
 
 def test_payload_reference_round_trip_and_validation() -> None:

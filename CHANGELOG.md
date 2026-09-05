@@ -2,6 +2,11 @@
 
 # Changelog
 
+## 1.0.1
+
+- Share default process-local payload handles between Object consumers and discovered Adapters; explicitly constructed registries remain isolated.
+
+
 ## 1.0.0 - 2026-08-25
 
 - Publish the exact eight-method Meridian V1 Object Catalog surface and manifest.

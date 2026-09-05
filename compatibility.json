@@ -12,9 +12,9 @@
     "wheelSha256": "6b8ebb70ee1a8467a96d668878a8eebf826c1c4b63b3832ae70f2c630a8ef4a1"
   },
   "design": {
-    "catalogsRevision": 70,
-    "hldRevision": 56,
-    "objectLldRevision": 12
+    "catalogsRevision": 121,
+    "hldRevision": 114,
+    "objectLldRevision": 35
   },
   "distribution": "meridian-storage-object-common",
   "formatVersion": "meridian-object-common-compatibility.v1",
@@ -27,5 +27,5 @@
     "version": "1.0.0",
     "wheelSha256": "76fced0bc083f145fad1949b85147a3563f3584f99994471693915a8ba1851ec"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

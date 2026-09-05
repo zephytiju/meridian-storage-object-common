@@ -53,3 +53,11 @@ regulatory claim.
 Multipart sessions and parts use opaque tokens and portable SHA-256 content
 identity. Part numbers are positive and completion requires a contiguous
 one-based sequence whose byte lengths equal the final Object length.
+
+## Default payload composition
+
+`default_payload_registry()` returns the process-local registry used by default Object
+consumers and Adapters. It allocates no clients and changes no wire format. Explicit
+`PayloadRegistry()` instances remain isolated; share one instance at both ends of a
+custom composition. Publishers release owned handles after use; one-shot reads consume
+their handle. Registry handles are process-local and cannot be persisted for later use.

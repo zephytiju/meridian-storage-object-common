@@ -15,6 +15,7 @@ from .payloads import (
     PayloadRegistry,
     PayloadSource,
     StreamPayloadSource,
+    default_payload_registry,
     iter_payload_chunks,
     transfer_payload,
 )
@@ -37,6 +38,7 @@ __all__ = [
     "PutStateMachine",
     "ResolvedByteRange",
     "StreamPayloadSource",
+    "default_payload_registry",
     "iter_payload_chunks",
     "transfer_payload",
 ]
