@@ -38,7 +38,7 @@ def fixtures(kind: str, name: str) -> Iterator[Mapping[str, Any]]:
 
 def main() -> None:
     public = load(ROOT / "contracts/public-api/meridian-object-common.v1.json")
-    assert public["version"] == object_common.__version__ == "1.0.0"
+    assert public["version"] == object_common.__version__ == "1.0.1"
     assert public["core"] == "1.0.0"
     assert public["semantics"] == "1.0.0"
     assert public["exports"] == sorted(object_common.__all__)
@@ -58,9 +58,9 @@ def main() -> None:
     assert compatibility["core"]["version"] == "1.0.0"
     assert compatibility["semantics"]["version"] == "1.0.0"
     assert compatibility["design"] == {
-        "catalogsRevision": 70,
-        "hldRevision": 56,
-        "objectLldRevision": 12,
+        "catalogsRevision": 121,
+        "hldRevision": 114,
+        "objectLldRevision": 35,
     }
 
     provider = ObjectCatalogProvider()

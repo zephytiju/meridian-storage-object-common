@@ -175,3 +175,16 @@ def test_signing_boundary_rejects_invalid_signers_and_references() -> None:
         )
     with pytest.raises(ObjectInvalidRequest, match="invalid logical"):
         parse_logical_reference({"resourceRef": "invalid", "objectId": "x"})
+
+
+def test_generated_nonce_always_satisfies_the_opaque_token_contract() -> None:
+    key = HmacSha256Key("key-1", b"x" * 32)
+    for _ in range(200):
+        signed = sign_object_reference(
+            REFERENCE,
+            allowed_operations=("get",),
+            expires_at=EXPIRY,
+            audience="reader",
+            signer=key,
+        )
+        assert SignedObjectReference.from_mapping(signed.to_dict()) == signed

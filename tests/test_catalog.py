@@ -69,7 +69,7 @@ def test_manifest_is_exact_and_deterministic() -> None:
     assert len(manifest.operations) == 8
     assert provider.manifest() is manifest
     assert manifest.fingerprint == (
-        "sha256:30eddb77e627a664861184d114f61955a613dc8569b3c12cd0ac5a0770048474"
+        "sha256:e6696e6944768e9a42acffa331d91c75fe7222ae331bfbda3640a4a4fe024b1b"
     )
 
 

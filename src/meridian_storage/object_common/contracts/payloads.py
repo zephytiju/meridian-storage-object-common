@@ -218,6 +218,24 @@ class PayloadRegistry:
             return len(self._sources)
 
 
+class _DefaultPayloadRegistry(PayloadRegistry):
+    def __bool__(self) -> bool:
+        # Preserve injection through released constructors using ``x or default``.
+        return True
+
+
+_DEFAULT_PAYLOADS = _DefaultPayloadRegistry()
+
+
+def default_payload_registry() -> PayloadRegistry:
+    """Resolve process-local handles for default Object consumers and Adapters.
+
+    Explicitly constructed registries remain independent. Callers own registered
+    payloads and must release replayable handles after their final use.
+    """
+    return _DEFAULT_PAYLOADS
+
+
 def iter_payload_chunks(
     stream: BinaryIO, *, chunk_size: int = DEFAULT_CHUNK_SIZE
 ) -> Iterator[bytes]:
@@ -284,6 +302,7 @@ __all__ = [
     "PayloadRegistry",
     "PayloadSource",
     "StreamPayloadSource",
+    "default_payload_registry",
     "iter_payload_chunks",
     "transfer_payload",
 ]

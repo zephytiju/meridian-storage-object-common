@@ -61,6 +61,7 @@ from .contracts import (
     PutStateMachine,
     ResolvedByteRange,
     StreamPayloadSource,
+    default_payload_registry,
     iter_payload_chunks,
     transfer_payload,
 )
@@ -182,6 +183,7 @@ __all__ = [
     "TransferCancelled",
     "__version__",
     "classify_object_failure",
+    "default_payload_registry",
     "effective_immutability",
     "iter_payload_chunks",
     "negotiate_object_capabilities",
