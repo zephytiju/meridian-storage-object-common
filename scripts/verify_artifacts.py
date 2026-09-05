@@ -14,7 +14,7 @@ from pathlib import Path, PurePosixPath
 
 PACKAGE = "meridian_storage/object_common"
 DISTRIBUTION = "meridian-storage-object-common"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 
 def digest(path: Path) -> str:
