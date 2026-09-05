@@ -4,6 +4,8 @@
 
 ## 1.0.1
 
+- Generate signing nonces with an alphabet accepted by the existing opaque-token contract.
+
 - Share default process-local payload handles between Object consumers and discovered Adapters; explicitly constructed registries remain isolated.
 
 

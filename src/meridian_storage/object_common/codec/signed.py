@@ -185,7 +185,7 @@ def sign_object_reference(
     if not isinstance(signer, ReferenceSigner):
         raise TypeError("signer does not implement the ReferenceSigner contract")
     reference = parse_object_reference(object_ref, require_digest=True)
-    selected_nonce = nonce or f"n_{secrets.token_urlsafe(24)}"
+    selected_nonce = nonce or f"n_{secrets.token_hex(24)}"
     unsigned = SignedObjectReference(
         object_ref=reference,
         allowed_operations=tuple(allowed_operations),
